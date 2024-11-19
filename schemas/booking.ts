@@ -26,17 +26,11 @@ const booking = {
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "checkoutDate",
-      title: "Check-out Date",
-      type: "date",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "numberOfDays",
-      title: "Number Of Days",
+      name: "duration",
+      title: "Duration(hours)",
       type: "number",
-      initialValue: 1,
-      validation: (Rule) => Rule.required().min(1),
+      initialValue: 2,
+      validation: (Rule) => Rule.required().min(2),
     }),
     defineField({
       name: "discount",

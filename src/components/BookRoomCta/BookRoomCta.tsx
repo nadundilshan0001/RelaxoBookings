@@ -7,14 +7,13 @@ import "react-datepicker/dist/react-datepicker.css";
 type Props = {
   checkinDate: Date | null;
   setCheckinDate: Dispatch<SetStateAction<Date | null>>;
-  checkoutDate: Date | null;
-  setCheckoutDate: Dispatch<SetStateAction<Date | null>>;
+  setDuration: Dispatch<SetStateAction<number>>;
   setAdults: Dispatch<SetStateAction<number>>;
   setNoOfChildren: Dispatch<SetStateAction<number>>;
-  calcMinCheckoutDate: () => Date | null;
   price: number;
   discount: number;
   adults: number;
+  duration: number;
   noOfChildren: number;
   specialNote: string;
   isBooked: boolean;
@@ -28,12 +27,11 @@ const BookRoomCta: FC<Props> = (props) => {
     specialNote,
     checkinDate,
     setCheckinDate,
-    checkoutDate,
-    setCheckoutDate,
-    calcMinCheckoutDate,
+    setDuration,
     setAdults,
     setNoOfChildren,
     adults,
+    duration,
     noOfChildren,
     isBooked,
     handleBookNowClick,
@@ -41,12 +39,17 @@ const BookRoomCta: FC<Props> = (props) => {
 
   const discountPrice = price - (price / 100) * discount;
 
-  const calcNoOfDays = () => {
-    if (!checkinDate || !checkoutDate) return 0;
-    const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
-    const noOfDays = Math.ceil(timeDiff / (24 * 60 * 60 * 1000));
-    return noOfDays;
+  const calcNoOfHours = () => {
+    if (!checkinDate || !duration) return 0;
+    const d = duration;
+    return d;
   };
+
+  const hours = [];
+
+  for (let i = 2; i < 24; i++) {
+    hours.push(i);
+  }
 
   return (
     <div className="px-7 py-6">
@@ -88,22 +91,30 @@ const BookRoomCta: FC<Props> = (props) => {
             className="w-full border text-black border-gray-300 rounded-lg p-2.5 focus:ring-primary focus:border-primary"
           />
         </div>
-        <div className="w-1/2 pl-2">
+      </div>
+      <br />
+      <div className="flex">
+        <div className="w-1/2 pr-2">
           <label
-            htmlFor="check-out-date"
+            htmlFor="duration"
             className="block text-sm font-medium text-gray-900 dark:text-gray-400"
           >
-            Check Out date
+            Duration
           </label>
-          <DatePicker
-            selected={checkoutDate}
-            onChange={(date) => setCheckoutDate(date)}
-            dateFormat="dd/MM/yyyy"
-            disabled={!checkinDate}
-            minDate={calcMinCheckoutDate()}
-            id="check-out-date"
-            className="w-full border text-black border-gray-300 rounded-lg p-2.5 focus:ring-primary focus:border-primary"
-          />
+
+          <select
+            name=""
+            id="duration"
+            value={duration}
+            className="w-full border text-sm text-black border-gray-300 rounded-lg p-2.5 focus:ring-primary focus:border-primary"
+            onChange={(e) => setDuration(Number(e.target.value))}
+          >
+            {hours.map((hour, index) => (
+              <option key={index} value={hour}>
+                {hour} hours
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -144,8 +155,8 @@ const BookRoomCta: FC<Props> = (props) => {
         </div>
       </div>
 
-      {calcNoOfDays() > 0 ? (
-        <p className="mt-3">Total Price: $ {calcNoOfDays() * discountPrice}</p>
+      {calcNoOfHours() > 0 ? (
+        <p className="mt-3">Total Price: $ {calcNoOfHours() * discountPrice}</p>
       ) : (
         <></>
       )}

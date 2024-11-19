@@ -22,7 +22,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   } = props;
 
   const [checkinDate, setCheckinDate] = useState<Date | null>(null);
-  const [checkoutDate, setCheckoutDate] = useState<Date | null>(null);
+  const [duration, setDuration] = useState(2);
   const [adults, setAdults] = useState(1);
   const [noOfChildren, setNoOfChildren] = useState(0);
 
@@ -36,23 +36,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
 
   if (!room) return <LoadingSpinner />;
 
-  const calcMinCheckoutDate = () => {
-    if (checkinDate) {
-      const nextDay = new Date(checkinDate);
-      nextDay.setDate(nextDay.getDate() + 1);
-      return nextDay;
-    }
-    return null;
-  };
-
   const handleBookNowClick = async () => {
-    if (!checkinDate || !checkoutDate)
-      return toast.error("Please provide checkin / checkout date");
-
-    if (checkinDate > checkoutDate)
-      return toast.error("Please choose a valid checkin period");
-
-    const numberOfDays = calcNumDays();
+    if (!checkinDate || !duration)
+      return toast.error("Please provide checkin / duration");
 
     const hotelRoomSlug = room.slug.current;
 
@@ -61,10 +47,9 @@ const RoomDetails = (props: { params: { slug: string } }) => {
     try {
       const { data: stripeSession } = await axios.post("/api/stripe", {
         checkinDate,
-        checkoutDate,
+        duration,
         adults,
         children: noOfChildren,
-        numberOfDays,
         hotelRoomSlug,
       });
 
@@ -81,13 +66,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       console.log("Error: ", error);
       toast.error("Please login ");
     }
-  };
-
-  const calcNumDays = () => {
-    if (!checkinDate || !checkoutDate) return;
-    const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
-    const noOfDays = Math.ceil(timeDiff / (24 * 60 * 60 * 1000));
-    return noOfDays;
   };
 
   return (
@@ -178,11 +156,10 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               specialNote={room.specialNote}
               checkinDate={checkinDate}
               setCheckinDate={setCheckinDate}
-              checkoutDate={checkoutDate}
-              setCheckoutDate={setCheckoutDate}
-              calcMinCheckoutDate={calcMinCheckoutDate}
+              duration={duration}
               adults={adults}
               noOfChildren={noOfChildren}
+              setDuration={setDuration}
               setAdults={setAdults}
               setNoOfChildren={setNoOfChildren}
               isBooked={room.isBooked}

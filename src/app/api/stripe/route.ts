@@ -12,30 +12,22 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 
 type RequestData = {
   checkinDate: string;
-  checkoutDate: string;
+  duration: number;
   adults: number;
   children: number;
-  numberOfDays: number;
   hotelRoomSlug: string;
 };
 
 export async function POST(req: Request, res: Response) {
   const {
     checkinDate,
+    duration,
     adults,
-    checkoutDate,
     children,
     hotelRoomSlug,
-    numberOfDays,
   }: RequestData = await req.json();
 
-  if (
-    !checkinDate ||
-    !checkoutDate ||
-    !adults ||
-    !hotelRoomSlug ||
-    !numberOfDays
-  ) {
+  if (!checkinDate || !duration || !adults || !hotelRoomSlug) {
     return new NextResponse("Please all fields are required", { status: 400 });
   }
 
@@ -48,13 +40,12 @@ export async function POST(req: Request, res: Response) {
   }
 
   const userId = session.user.id;
-  const formattedCheckoutDate = checkoutDate.split("T")[0];
   const formattedCheckinDate = checkinDate.split("T")[0];
 
   try {
     const room = await getRoom(hotelRoomSlug);
     const discountPrice = room.price - (room.price / 100) * room.discount;
-    const totalPrice = discountPrice * numberOfDays;
+    const totalPrice = discountPrice * duration;
 
     // Create a stripe payment
     const stripeSession = await stripe.checkout.sessions.create({
@@ -75,24 +66,22 @@ export async function POST(req: Request, res: Response) {
       payment_method_types: ["card"],
       success_url: `${origin}/users/${userId}`,
       metadata: {
+        duration,
         adults,
         checkinDate: formattedCheckinDate,
-        checkoutDate: formattedCheckoutDate,
         children,
         hotelRoom: room._id,
-        numberOfDays,
         user: userId,
         discount: room.discount,
         totalPrice,
       },
     });
     await createBooking({
+      duration: Number(duration),
       adults: Number(adults),
       checkinDate: formattedCheckinDate,
-      checkoutDate: formattedCheckoutDate,
       children: Number(children),
       hotelRoom: room._id,
-      numberOfDays: Number(numberOfDays),
       discount: Number(discountPrice),
       totalPrice: Number(totalPrice),
       user: userId,

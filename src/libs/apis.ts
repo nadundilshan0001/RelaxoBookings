@@ -37,13 +37,12 @@ export async function getRoom(slug: string) {
 }
 
 export const createBooking = async ({
+  duration,
   adults,
   checkinDate,
-  checkoutDate,
   children,
   discount,
   hotelRoom,
-  numberOfDays,
   totalPrice,
   user,
 }: CreateBookingDto) => {
@@ -56,8 +55,7 @@ export const createBooking = async ({
           user: { _type: "reference", _ref: user },
           hotelRoom: { _type: "reference", _ref: hotelRoom },
           checkinDate,
-          checkoutDate,
-          numberOfDays,
+          duration,
           adults,
           children,
           totalPrice,

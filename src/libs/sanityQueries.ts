@@ -52,8 +52,7 @@ export const getUserBookingsQuery = groq`*[_type == 'booking' && user._ref == $u
         price
     },
     checkinDate,
-    checkoutDate,
-    numberOfDays,
+    duration,
     adults,
     children,
     totalPrice,
