@@ -6,6 +6,7 @@ import sanityClient from "./sanity";
 import * as queries from "./sanityQueries";
 import { Booking } from "@/models/booking";
 import { UpdateReviewDto } from "@/models/review";
+import { CreateComplaint } from "@/models/complaint";
 
 export async function getFeaturedRoom() {
   const result = await sanityClient.fetch<Room>(
@@ -211,3 +212,30 @@ export async function getRoomReviews(roomId: string) {
 
   return result;
 }
+
+export const createComplaint = async ({
+  email,
+  complaint,
+}: CreateComplaint) => {
+  const mutation = {
+    mutations: [
+      {
+        create: {
+          _type: "complaint",
+          email,
+          complaint,
+          complaintDate: new Date().toISOString().split("T")[0],
+          complaintTime: new Date().toISOString().split("T")[1].split(".")[0],
+        },
+      },
+    ],
+  };
+
+  const { data } = await axios.post(
+    `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-10-21/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
+    mutation,
+    { headers: { Authorization: `Bearer ${process.env.SANITY_STUDIO_TOKEN}` } }
+  );
+
+  return data;
+};
