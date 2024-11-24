@@ -39,7 +39,7 @@ const ContactUs = () => {
   };
 
   return (
-    <section className="container mx-auto flex gap-2">
+    <section className="container mx-auto flex gap-2 mt-8">
       <div className="p-6 space-y-6 sm:p-8 w-full max-w-2xl mx-auto bg-white shadow-md rounded-lg flex-1">
         <div className="mb-6">
           <h1 className="text-2xl font-bold leading-tight tracking-tight text-gray-800">

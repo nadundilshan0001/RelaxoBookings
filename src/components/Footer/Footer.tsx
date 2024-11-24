@@ -1,11 +1,23 @@
+"use client";
+
+import { useContext } from "react";
 import Link from "next/link";
 import { BsFillSendFill, BsTelephoneOutbound } from "react-icons/bs";
 import { BiMessageDetail } from "react-icons/bi";
 import Image from "next/image";
 import logo from "../../../public/images/Relaxo.png";
+import ThemeContext from "@/context/themeContext";
+
 const Footer = () => {
+  const { darkTheme, setDarkTheme } = useContext(ThemeContext);
   return (
-    <footer className="mt-16">
+    <footer
+      className={`${
+        darkTheme
+          ? "bg-black border-t-white border-t-2"
+          : "bg-soft_white w-full"
+      } mt-16 `}
+    >
       <hr className=" mb-2 bg-black h-0.5" />
       <div className="container mx-auto px-4">
         <Link href="/" className="font-black text-tertiary-dark">
@@ -48,7 +60,11 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="bg-black h-6 md:h-[40px] mt-16 w-full bottom-0 left-0 flex">
+      <div
+        className={`${
+          darkTheme ? " border-t-white border-t-2" : ""
+        } bg-black h-6 md:h-[40px] mt-16 w-full bottom-0 left-0 flex `}
+      >
         <ul className="flex text-white flex-wrap justify-around text-sm py-2 flex-1">
           <li>@ Copyright 2024 </li>
           <li>Privacy Policy</li>

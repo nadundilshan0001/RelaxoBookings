@@ -5,18 +5,30 @@ import { useContext } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 
 import ThemeContext from "@/context/themeContext";
 import Image from "next/image";
 import logo from "../../../public/images/Relaxo.png";
 
 const Header = () => {
+  const themeFromStorage: boolean =
+    typeof localStorage !== "undefined" && localStorage.getItem("hotel-theme")
+      ? JSON.parse(localStorage.getItem("hotel-theme")!)
+      : false;
+
   const { darkTheme, setDarkTheme } = useContext(ThemeContext);
 
   const { data: session } = useSession();
 
   return (
-    <header className="pb-5 px-4 container mx-auto text-xl flex flex-wrap md:flex-nowrap items-center justify-between">
+    <header
+      className={`${
+        darkTheme
+          ? "bg-black border-b-white border-b-2"
+          : "bg-soft_white w-full"
+      } px-10  text-xl flex flex-wrap md:flex-nowrap items-center justify-between mb-5 `}
+    >
       <div className="flex items-center w-full md:2/3">
         <Link href="/" className="font-black text-tertiary-dark">
           <Image src={logo} alt="Company Logo" width={150} height={75} />
@@ -69,20 +81,61 @@ const Header = () => {
         </ul>
       </div>
 
-      <ul className="flex items-center justify-between w-full md:w-1/3 mt-4">
-        <li className="hover:-translate-y-2 duration-500 transition-all">
+      <motion.ul
+        variants={{
+          hidden: { opacity: 0 },
+          show: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.1,
+              delayChildren: 0.3,
+            },
+          },
+        }}
+        initial="hidden"
+        animate="show"
+        className="flex items-center justify-between w-full md:w-1/3 mt-4 font-medium"
+      >
+        <motion.li
+          variants={{
+            hidden: { opacity: 0, y: -20 },
+            show: { opacity: 1, y: 0 },
+          }}
+          whileHover={{ y: -8 }}
+          className="hover:-translate-y-2 duration-500 transition-all"
+        >
           <Link href="/">Home</Link>
-        </li>
-        <li className="hover:-translate-y-2 duration-500 transition-all">
-          <Link href="/rooms">Rooms</Link>
-        </li>
-        <li className="hover:-translate-y-2 duration-500 transition-all">
+        </motion.li>
+        <motion.li
+          variants={{
+            hidden: { opacity: 0, y: -20 },
+            show: { opacity: 1, y: 0 },
+          }}
+          whileHover={{ y: -8 }}
+          className="hover:-translate-y-2 duration-500 transition-all"
+        >
+          <Link href="/rooms">Pods</Link>
+        </motion.li>
+        <motion.li
+          className="hover:-translate-y-2 duration-500 transition-all"
+          variants={{
+            hidden: { opacity: 0, y: -20 },
+            show: { opacity: 1, y: 0 },
+          }}
+          whileHover={{ y: -8 }}
+        >
           <Link href="/contactus">Contact</Link>
-        </li>
-        <li className="hover:-translate-y-2 duration-500 transition-all">
+        </motion.li>
+        <motion.li
+          variants={{
+            hidden: { opacity: 0, y: -20 },
+            show: { opacity: 1, y: 0 },
+          }}
+          whileHover={{ y: -8 }}
+        >
           <Link href="/">FAQ</Link>
-        </li>
-      </ul>
+        </motion.li>
+      </motion.ul>
     </header>
   );
 };
