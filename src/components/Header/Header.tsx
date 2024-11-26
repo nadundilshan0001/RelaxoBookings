@@ -57,27 +57,7 @@ const Header = () => {
               </Link>
             )}
           </li>
-          <li className="ml-5">
-            {darkTheme ? (
-              <MdOutlineLightMode
-                className="cursor-pointer"
-                size={30}
-                onClick={() => {
-                  setDarkTheme(false);
-                  localStorage.removeItem("hotel-theme");
-                }}
-              />
-            ) : (
-              <MdDarkMode
-                className="cursor-pointer"
-                size={30}
-                onClick={() => {
-                  setDarkTheme(true);
-                  localStorage.setItem("hotel-theme", "true");
-                }}
-              />
-            )}
-          </li>
+          <li className="ml-5">{""} </li>
         </ul>
       </div>
 
@@ -133,7 +113,7 @@ const Header = () => {
           }}
           whileHover={{ y: -8 }}
         >
-          <Link href="/">FAQ</Link>
+          <Link href="/faq">FAQ</Link>
         </motion.li>
       </motion.ul>
     </header>

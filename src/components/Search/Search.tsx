@@ -31,7 +31,7 @@ const Search: FC<Props> = ({
   };
 
   return (
-    <section className="bg-tertiary-light px-4 py-6 rounded-lg">
+    <section className="bg-gradient-to-r from-blue-50 to-blue-100 px-4 py-6 rounded-lg">
       <div className="container mx-auto flex gap-4 flex-wrap justify-between items-center">
         <div className="w-full md:1/3 lg:w-auto mb-4 md:mb-0">
           <label className="block text-sm font-medium mb-2 text-black">
@@ -65,7 +65,7 @@ const Search: FC<Props> = ({
         </div>
 
         <button
-          className="btn-primary"
+          className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl text-2xl text-white font-semibold  rounded-lg px-10 py-3 text-center me-2 mb-2"
           type="button"
           onClick={handleFilterClick}
         >
