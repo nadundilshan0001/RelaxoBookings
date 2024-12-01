@@ -39,9 +39,7 @@ export async function getRoom(slug: string) {
 
 export const createBooking = async ({
   duration,
-  adults,
   checkinDate,
-  children,
   discount,
   hotelRoom,
   totalPrice,
@@ -57,8 +55,6 @@ export const createBooking = async ({
           hotelRoom: { _type: "reference", _ref: hotelRoom },
           checkinDate,
           duration,
-          adults,
-          children,
           totalPrice,
           discount,
         },

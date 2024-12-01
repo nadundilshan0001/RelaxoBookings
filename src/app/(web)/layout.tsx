@@ -36,7 +36,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={poppins.className}>
+      <body className="font-montserrat">
         <Providers>
           <NextAuthProvider>
             <ThemeProvider>

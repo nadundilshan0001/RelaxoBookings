@@ -1,9 +1,7 @@
 "use client";
-
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { motion } from "framer-motion";
 
 import { getRooms } from "@/libs/apis";
 import { Room } from "@/models/room";
@@ -36,6 +34,7 @@ const Rooms = () => {
   const filterRooms = (rooms: Room[]) => {
     return rooms.filter((room) => {
       // Apply room type filter
+
       if (
         roomTypeFilter &&
         roomTypeFilter.toLowerCase() !== "all" &&
@@ -44,7 +43,7 @@ const Rooms = () => {
         return false;
       }
 
-      // Apply search query filter
+      //   Apply search query filter
       if (
         searchQuery &&
         !room.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -67,17 +66,9 @@ const Rooms = () => {
         setSearchQuery={setSearchQuery}
       />
 
-      <div className="flex mt-20 justify-between flex-wrap gap-4">
-        {filteredRooms.map((room, index) => (
-          <motion.div
-            key={room._id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="w-full sm:w-[calc(50%-8px)] lg:w-[calc(33.33%-8px)]"
-          >
-            <RoomCard room={room} />
-          </motion.div>
+      <div className="flex mt-20 justify-between flex-wrap">
+        {filteredRooms.map((room) => (
+          <RoomCard key={room._id} room={room} />
         ))}
       </div>
     </div>

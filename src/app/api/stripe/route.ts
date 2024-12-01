@@ -13,21 +13,14 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
 type RequestData = {
   checkinDate: string;
   duration: number;
-  adults: number;
-  children: number;
   hotelRoomSlug: string;
 };
 
 export async function POST(req: Request, res: Response) {
-  const {
-    checkinDate,
-    duration,
-    adults,
-    children,
-    hotelRoomSlug,
-  }: RequestData = await req.json();
+  const { checkinDate, duration, hotelRoomSlug }: RequestData =
+    await req.json();
 
-  if (!checkinDate || !duration || !adults || !hotelRoomSlug) {
+  if (!checkinDate || !duration || !hotelRoomSlug) {
     return new NextResponse("Please all fields are required", { status: 400 });
   }
 
@@ -67,9 +60,7 @@ export async function POST(req: Request, res: Response) {
       success_url: `${origin}/users/${userId}`,
       metadata: {
         duration,
-        adults,
         checkinDate: formattedCheckinDate,
-        children,
         hotelRoom: room._id,
         user: userId,
         discount: room.discount,
@@ -78,9 +69,7 @@ export async function POST(req: Request, res: Response) {
     });
     await createBooking({
       duration: Number(duration),
-      adults: Number(adults),
       checkinDate: formattedCheckinDate,
-      children: Number(children),
       hotelRoom: room._id,
       discount: Number(discountPrice),
       totalPrice: Number(totalPrice),

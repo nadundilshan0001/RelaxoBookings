@@ -7,7 +7,7 @@ const roomTypes = [
 
 const hotelRoom = {
   name: "hotelRoom",
-  title: "Hotel Room",
+  title: "Sleeping Pods",
   type: "document",
   fields: [
     defineField({
@@ -74,7 +74,7 @@ const hotelRoom = {
     }),
     defineField({
       name: "type",
-      title: "Room Type",
+      title: "Pod Type",
       type: "string",
       options: {
         list: roomTypes,
@@ -88,7 +88,7 @@ const hotelRoom = {
       type: "text",
       validation: (Rule) => Rule.required(),
       initialValue:
-        "Check-in time is 12:00 PM, checkout time is 11:59 AM. If you leave behind any items, please contact the receptionist.",
+        "Reserve Your Relaxo Pod Now - Comfort and Convenience Await.",
     }),
     defineField({
       name: "dimension",

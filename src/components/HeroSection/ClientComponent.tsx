@@ -22,13 +22,13 @@ const ClientComponent: FC<Props> = (props) => {
             <p className="text-xs lg:text-xl text-center font-semibold">
               Standard Pods
             </p>
-            <CountUpNumber duration={4000} endValue={50} />
+            <CountUpNumber duration={1000} endValue={10} />
           </div>
           <div className="flex gap-3 flex-col items-center justify-center">
             <p className="text-xs lg:text-xl text-center font-semibold">
               VIP Pods
             </p>
-            <CountUpNumber duration={4000} endValue={120} />
+            <CountUpNumber duration={1000} endValue={5} />
           </div>
         </div>
       </div>

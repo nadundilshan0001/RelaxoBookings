@@ -8,13 +8,9 @@ type Props = {
   checkinDate: Date | null;
   setCheckinDate: Dispatch<SetStateAction<Date | null>>;
   setDuration: Dispatch<SetStateAction<number>>;
-  setAdults: Dispatch<SetStateAction<number>>;
-  setNoOfChildren: Dispatch<SetStateAction<number>>;
   price: number;
   discount: number;
-  adults: number;
   duration: number;
-  noOfChildren: number;
   specialNote: string;
   isBooked: boolean;
   handleBookNowClick: () => void;
@@ -28,11 +24,7 @@ const BookRoomCta: FC<Props> = (props) => {
     checkinDate,
     setCheckinDate,
     setDuration,
-    setAdults,
-    setNoOfChildren,
-    adults,
     duration,
-    noOfChildren,
     isBooked,
     handleBookNowClick,
   } = props;
@@ -115,43 +107,6 @@ const BookRoomCta: FC<Props> = (props) => {
               </option>
             ))}
           </select>
-        </div>
-      </div>
-
-      <div className="flex mt-4">
-        <div className="w-1/2 pr-2">
-          <label
-            htmlFor="adults"
-            className="block text-sm font-medium text-gray-900 dark:text-gray-400"
-          >
-            Adults
-          </label>
-          <input
-            type="number"
-            id="adults"
-            value={adults}
-            onChange={(e) => setAdults(+e.target.value)}
-            min={1}
-            max={5}
-            className="w-full border border-gray-300 rounded-lg p-2.5"
-          />
-        </div>
-        <div className="w-1/2 pl-2">
-          <label
-            htmlFor="children"
-            className="block text-sm font-medium text-gray-900 dark:text-gray-400"
-          >
-            Children
-          </label>
-          <input
-            type="number"
-            id="children"
-            value={noOfChildren}
-            onChange={(e) => setNoOfChildren(+e.target.value)}
-            min={0}
-            max={3}
-            className="w-full border border-gray-300 rounded-lg p-2.5"
-          />
         </div>
       </div>
 

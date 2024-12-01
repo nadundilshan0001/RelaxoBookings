@@ -23,8 +23,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
 
   const [checkinDate, setCheckinDate] = useState<Date | null>(null);
   const [duration, setDuration] = useState(2);
-  const [adults, setAdults] = useState(1);
-  const [noOfChildren, setNoOfChildren] = useState(0);
 
   const fetchRoom = async () => getRoom(slug);
 
@@ -48,8 +46,6 @@ const RoomDetails = (props: { params: { slug: string } }) => {
       const { data: stripeSession } = await axios.post("/api/stripe", {
         checkinDate,
         duration,
-        adults,
-        children: noOfChildren,
         hotelRoomSlug,
       });
 
@@ -157,11 +153,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
               checkinDate={checkinDate}
               setCheckinDate={setCheckinDate}
               duration={duration}
-              adults={adults}
-              noOfChildren={noOfChildren}
               setDuration={setDuration}
-              setAdults={setAdults}
-              setNoOfChildren={setNoOfChildren}
               isBooked={room.isBooked}
               handleBookNowClick={handleBookNowClick}
             />

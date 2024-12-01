@@ -41,8 +41,6 @@ export type CreateBookingDto = {
   hotelRoom: string;
   checkinDate: string;
   duration: number;
-  adults: number;
-  children: number;
   totalPrice: number;
   discount: number;
 };
