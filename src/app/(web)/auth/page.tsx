@@ -117,7 +117,7 @@ const Auth = () => {
           </button>
         </form>
 
-        <p>Don"t you have an account? </p>
+        <p>Do not you have an account? </p>
         <button onClick={loginHandler} className="text-blue-700 underline">
           login
         </button>
