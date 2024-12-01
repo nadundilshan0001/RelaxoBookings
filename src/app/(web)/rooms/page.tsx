@@ -2,6 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { motion } from "framer-motion";
 
 import { getRooms } from "@/libs/apis";
 import { Room } from "@/models/room";
@@ -59,18 +60,28 @@ const Rooms = () => {
 
   return (
     <div className="container mx-auto pt-10">
-      <Search
-        roomTypeFilter={roomTypeFilter}
-        searchQuery={searchQuery}
-        setRoomTypeFilter={setRoomTypeFilter}
-        setSearchQuery={setSearchQuery}
-      />
-
-      <div className="flex mt-20 justify-between flex-wrap">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <Search
+          roomTypeFilter={roomTypeFilter}
+          searchQuery={searchQuery}
+          setRoomTypeFilter={setRoomTypeFilter}
+          setSearchQuery={setSearchQuery}
+        />
+      </motion.div>
+      <motion.div
+        className="flex mt-20 justify-between flex-wrap"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9 }}
+      >
         {filteredRooms.map((room) => (
           <RoomCard key={room._id} room={room} />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
