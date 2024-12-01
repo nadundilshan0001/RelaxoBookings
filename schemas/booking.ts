@@ -14,7 +14,7 @@ const booking = {
     }),
     defineField({
       name: "hotelRoom",
-      title: "Hotel Room",
+      title: "Pod",
       type: "reference",
       to: [{ type: "hotelRoom" }],
       validation: (Rule) => Rule.required(),
@@ -29,8 +29,8 @@ const booking = {
       name: "duration",
       title: "Duration(hours)",
       type: "number",
-      initialValue: 2,
-      validation: (Rule) => Rule.required().min(2),
+      initialValue: 1,
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "discount",

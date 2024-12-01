@@ -36,8 +36,7 @@ const hotelRoom = {
       name: "price",
       title: "Price",
       type: "number",
-      validation: (Rule) =>
-        Rule.required().min(100).error("Minimum 100 Characters"),
+      validation: (Rule) => Rule.required().min(40).error("Minimum 40$"),
     }),
     defineField({
       name: "discount",

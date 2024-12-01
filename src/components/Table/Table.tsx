@@ -21,9 +21,8 @@ const Table: FC<Props> = ({ bookingDetails, setRoomId, toggleRatingModal }) => {
           <tr>
             <th className="px-6 py-3">Room name</th>
             <th className="px-6 py-3">Unit Price</th>
-            <th className="px-6 py-3">Price</th>
-            <th className="px-6 py-3">Discount</th>
             <th className="px-6 py-3">No. Hours Booked</th>
+            <th className="px-6 py-3">Total Price</th>
             <th className="px-6 py-3"></th>
           </tr>
         </thead>
@@ -41,10 +40,9 @@ const Table: FC<Props> = ({ bookingDetails, setRoomId, toggleRatingModal }) => {
               >
                 {booking.hotelRoom.name}
               </th>
-              <td className="px-6 py-4">{booking.hotelRoom.price}</td>
-              <td className="px-6 py-4">{booking.totalPrice}</td>
-              <td className="px-6 py-4">{booking.discount}</td>
+              <td className="px-6 py-4">{booking.hotelRoom.price}$</td>
               <td className="px-6 py-4">{booking.duration} hours</td>
+              <td className="px-6 py-4">{booking.totalPrice}$</td>
               <td className="px-6 py-4">
                 <button
                   onClick={() => {

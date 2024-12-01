@@ -22,7 +22,7 @@ const RoomDetails = (props: { params: { slug: string } }) => {
   } = props;
 
   const [checkinDate, setCheckinDate] = useState<Date | null>(null);
-  const [duration, setDuration] = useState(2);
+  const [duration, setDuration] = useState(1);
 
   const fetchRoom = async () => getRoom(slug);
 
