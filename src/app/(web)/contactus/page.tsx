@@ -112,7 +112,7 @@ const ContactUs = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-tertiary-dark text-white font-medium rounded-lg text-sm px-5 py-2.5 hover:bg-tertiary-light transition-colors"
+              className="w-full text-xl text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl px-3 rounded-md py-2.5 text-center"
             >
               Submit
             </button>
